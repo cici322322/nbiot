@@ -1,1 +1,1 @@
-# nbiot
+This   project  proposal  calls  for  an  evaluation  method/platform  for new  NB­IoT services   zandprotocols. The goal is to carry out an in­depth functional and performance evaluation of NBIoTwhere power consumption (sleep­modes) and radio coverage and software support are the  keyaspects.We work with “state­of­the­art” radio modules along emerging ISP services. And we will  use Telia NB­IoT sevices and SIMCOM SIM7020E radio module.

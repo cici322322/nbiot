@@ -1,0 +1,60 @@
+# Some variables.
+	set a 0
+	set b 0
+	set c 0
+	set d 0
+
+	print Trying to Connecting..
+
+loop1:
+	# Create UDP socket
+	send "AT+CSOC=1,2,1"
+	inc a
+	if a > 3 goto failed1
+	expect {
+		"OK"
+		timeout 1	goto loop1
+}
+
+loop2:
+	# Connect remote server
+	send "AT+CSOCON=0,100001,"130.237.2.201""
+	inc b
+	if e > 3 goto failed2
+	expect {
+		"OK"
+		timeout 1	goto loop2
+}
+loop3:
+	# Send data
+	send "AT+CSOSEND=0,0,"Waveshare""
+	inc c
+	if c > 10 goto failed3
+	expect {
+		"OK"
+		timeout 1	goto loop3
+}
+loop4:
+	# Send data
+	send "AT+CSOCL=0"
+	inc d
+	if d > 10 goto failed4
+	expect {
+		"OK"
+		timeout 1	goto loop4
+}
+
+
+failed1:
+	print Create UDP socket fail
+	exit
+failed2:
+	print Connect remote server fail
+	exit
+failed3:
+	print Send data fail
+	exit
+failed3:
+	print Close socket fail
+	exit
+	

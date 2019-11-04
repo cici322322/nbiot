@@ -1,0 +1,46 @@
+# Some variables.
+	set a 0
+	set b 0
+	set c 0
+
+
+	print Trying to Connecting..
+loop1:
+	# network registration
+	send "at+cereg=4"
+	inc a
+	if a > 3 goto failed1
+	expect {
+		"OK"
+		timeout 1 	goto loop1
+	}
+loop2:
+	# check registration status
+	send "at+cereg?"
+	inc b
+	if b > 3 goto failed2
+	expect {
+		"OK"
+		timeout 1	goto loop2
+	}
+loop3:
+	# set PSM
+	send "at+cpsms=1"
+	inc c
+	if c > 3 goto failed3
+	expect {
+		"OK"
+		timeout 1	goto loop3
+	}
+
+
+failed1:
+	print \n network registration failed
+	exit
+failed2:
+	print \n network registration check failed
+	exit
+failed3:
+	print \n PSM failed
+	exit
+	

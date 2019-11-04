@@ -1,0 +1,43 @@
+# Some variables.
+	set a 0
+	set b 0
+	set c 0
+	print Trying to Connecting..
+loop1:
+	# test connection
+	send "AT"
+	inc a
+	if a > 3 goto failed1
+	expect {
+		"OK"
+		timeout 1 	goto loop1
+	}
+loop2:
+	# test roaming
+	send "AT+CREG?"
+	inc b
+	if b > 3 goto failed2
+	expect {
+		#+CREG: 1,5\n
+		"OK"
+		timeout 1	goto loop2
+	}
+loop3:
+	# set APN
+	send "AT+csgact=1,1,"lpwa.telia.iot""
+	inc c
+	if c > 3 goto failed3
+	expect {
+		"OK"
+		timeout 1	goto loop3
+	}
+failed1:
+	print connection fail
+	exit
+failed2:
+	print roaming fail
+	exit
+failed3:
+	print APN fail
+	exit
+	
